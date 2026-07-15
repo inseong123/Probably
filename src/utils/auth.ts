@@ -9,17 +9,20 @@ export const auth = {
     const userId = localStorage.getItem(CURRENT_USER_KEY)
     if (!userId) return null
     
-    const users = JSON.parse(localStorage.getItem(USERS_KEY) || '{}')
+    const users = JSON.parse(localStorage.getItem(USERS_KEY) || '{}') as Record<string, User>
     return users[userId] || null
   },
 
   // 계정 생성
   signup(username: string): User {
-    const users: Record<string, User> = JSON.parse(localStorage.getItem(USERS_KEY) || '{}')
+    const usersData = localStorage.getItem(USERS_KEY) || '{}'
+    const users: Record<string, User> = JSON.parse(usersData)
     
     // 중복 확인
-    const userList = Object.values(users)
-    if (userList.some((u: User) => u.username === username)) {
+    const userArray: User[] = Object.values(users)
+    const isDuplicate = userArray.some((u) => u.username === username)
+    
+    if (isDuplicate) {
       throw new Error('이미 존재하는 닉네임입니다!')
     }
 
@@ -44,20 +47,21 @@ export const auth = {
 
   // 계정 로그인 (기존 계정으로)
   login(username: string): User {
-    const users: Record<string, User> = JSON.parse(localStorage.getItem(USERS_KEY) || '{}')
-    const userList = Object.values(users)
-    const user = userList.find((u: User) => u.username === username) as User | undefined
+    const usersData = localStorage.getItem(USERS_KEY) || '{}'
+    const users: Record<string, User> = JSON.parse(usersData)
+    const userArray: User[] = Object.values(users)
+    const foundUser = userArray.find((u) => u.username === username)
     
-    if (!user) {
+    if (!foundUser) {
       throw new Error('존재하지 않는 계정입니다!')
     }
 
-    user.lastPlayed = Date.now()
-    users[user.id] = user
+    foundUser.lastPlayed = Date.now()
+    users[foundUser.id] = foundUser
     localStorage.setItem(USERS_KEY, JSON.stringify(users))
-    localStorage.setItem(CURRENT_USER_KEY, user.id)
+    localStorage.setItem(CURRENT_USER_KEY, foundUser.id)
 
-    return user
+    return foundUser
   },
 
   // 로그아웃
@@ -67,7 +71,8 @@ export const auth = {
 
   // 모든 사용자 목록
   getAllUsers(): User[] {
-    const users: Record<string, User> = JSON.parse(localStorage.getItem(USERS_KEY) || '{}')
-    return Object.values(users) as User[]
+    const usersData = localStorage.getItem(USERS_KEY) || '{}'
+    const users: Record<string, User> = JSON.parse(usersData)
+    return Object.values(users)
   },
 }
