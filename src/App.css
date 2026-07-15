@@ -6,3 +6,13 @@
   align-items: center;
   padding: 20px;
 }
+
+.loading {
+  text-align: center;
+  color: #ffd700;
+  font-size: 1.5em;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
