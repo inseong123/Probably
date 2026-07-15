@@ -1,0 +1,61 @@
+.shop-panel {
+  background: rgba(123, 104, 238, 0.1);
+  border: 2px solid #7b68ee;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.shop-panel h2 {
+  margin-bottom: 15px;
+  color: #7b68ee;
+  font-size: 1.2em;
+}
+
+.shop-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shop-item {
+  background: rgba(123, 104, 238, 0.2);
+  border: 1px solid #7b68ee;
+  border-radius: 8px;
+  padding: 10px;
+  color: #eee;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9em;
+}
+
+.shop-item:hover {
+  background: rgba(123, 104, 238, 0.4);
+  border-color: #9d7fef;
+}
+
+.shop-item .emoji {
+  font-size: 1.3em;
+}
+
+.shop-item .name {
+  flex: 1;
+  text-align: left;
+}
+
+.shop-item .gold {
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.cheat-notice {
+  margin-top: 10px;
+  padding: 8px;
+  background: rgba(255, 107, 107, 0.2);
+  border-left: 3px solid #ff6b6b;
+  color: #ff9999;
+  font-size: 0.85em;
+  border-radius: 4px;
+}

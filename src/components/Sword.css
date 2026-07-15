@@ -1,0 +1,93 @@
+.sword-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.sword {
+  font-size: 6em;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  cursor: pointer;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+.sword.enhancing {
+  animation: enhanceShake 0.8s ease-in-out;
+}
+
+.sword.success {
+  animation: successGlow 0.5s ease-out;
+  filter: drop-shadow(0 0 20px var(--sword-color)) drop-shadow(0 0 40px var(--sword-color));
+}
+
+.sword.fail {
+  animation: failShake 0.5s ease-out;
+}
+
+@keyframes enhanceShake {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-15deg) scale(1.1); }
+  50% { transform: rotate(15deg) scale(1.2); }
+  75% { transform: rotate(-10deg) scale(1.1); }
+}
+
+@keyframes successGlow {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes failShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.level-badge {
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid #ffd700;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.success-effect {
+  position: absolute;
+  font-size: 2em;
+  animation: floatUp 1s ease-out forwards;
+  pointer-events: none;
+}
+
+.fail-effect {
+  position: absolute;
+  font-size: 2em;
+  animation: explode 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0.5);
+  }
+}
+
+@keyframes explode {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
