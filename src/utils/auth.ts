@@ -15,10 +15,11 @@ export const auth = {
 
   // 계정 생성
   signup(username: string): User {
-    const users = JSON.parse(localStorage.getItem(USERS_KEY) || '{}')
+    const users: Record<string, User> = JSON.parse(localStorage.getItem(USERS_KEY) || '{}')
     
     // 중복 확인
-    if (Object.values(users).some((u: User) => u.username === username)) {
+    const userList = Object.values(users)
+    if (userList.some((u: User) => u.username === username)) {
       throw new Error('이미 존재하는 닉네임입니다!')
     }
 
@@ -43,8 +44,9 @@ export const auth = {
 
   // 계정 로그인 (기존 계정으로)
   login(username: string): User {
-    const users = JSON.parse(localStorage.getItem(USERS_KEY) || '{}')
-    const user = Object.values(users).find((u: User) => u.username === username) as User | undefined
+    const users: Record<string, User> = JSON.parse(localStorage.getItem(USERS_KEY) || '{}')
+    const userList = Object.values(users)
+    const user = userList.find((u: User) => u.username === username) as User | undefined
     
     if (!user) {
       throw new Error('존재하지 않는 계정입니다!')
@@ -65,7 +67,7 @@ export const auth = {
 
   // 모든 사용자 목록
   getAllUsers(): User[] {
-    const users = JSON.parse(localStorage.getItem(USERS_KEY) || '{}')
+    const users: Record<string, User> = JSON.parse(localStorage.getItem(USERS_KEY) || '{}')
     return Object.values(users) as User[]
   },
 }
